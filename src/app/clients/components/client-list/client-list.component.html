@@ -1,177 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- Agrega el estilo de Angular Material -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <style>
-        /* Estilo general para centrar el contenido */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
+    <!-- Botón para Agregar Cliente -->
+    <button mat mat-raised-button color="Blue"(click)="navigateToForm()">Agregar Cliente</button>
 
-        /* Estilo para el contenedor principal */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
+    <!-- Título centrado -->
+    <h1>Tabla Asegurados</h1>
 
-        /* Estilo para centrar el título */
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
-        }
-
-        /* Botón en la esquina superior izquierda */
-        .add-client-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 1;
-        }
-
-        /* Estilo de la tabla */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f1f1f1;
-        }
-
-        /* Agregar márgenes al paginador */
-        mat-paginator {
-            margin-top: 20px;
-        }
-
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <!-- Botón para Agregar Cliente -->
-        <button mat mat-raised-button color="Blue" (click)="navigateToForm()">Agregar Cliente</button>
-
-        <!-- Título centrado -->
-        <h1>Tabla Asegurados</h1>
-
-        <div>
-            <div class="mat-elevation-z8">
-                <table mat-table [dataSource]="dataSource">
-                    
-                    <!-- ID Column -->
-                    <ng-container matColumnDef="id">
-                        <th mat-header-cell *matHeaderCellDef> ID </th>
-                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                    </ng-container>
-            
-                    <!-- Numero Identificacion Column -->
-                    <ng-container matColumnDef="numeroidentificacion">
-                        <th mat-header-cell *matHeaderCellDef> Numero Identificacion </th>
-                        <td mat-cell *matCellDef="let element"> {{element.numeroidentificacion}} </td>
-                    </ng-container>
-            
-                    <!-- Primer Nombre Column -->
-                    <ng-container matColumnDef="primernombre">
-                        <th mat-header-cell *matHeaderCellDef> Primer Nombre </th>
-                        <td mat-cell *matCellDef="let element"> {{element.primernombre}} </td>
-                    </ng-container>
-            
-                    <!-- Segundo Nombre Column -->
-                    <ng-container matColumnDef="segundonombre">
-                        <th mat-header-cell *matHeaderCellDef> Segundo Nombre </th>
-                        <td mat-cell *matCellDef="let element"> {{element.segundonombre}} </td>
-                    </ng-container>
-            
-                    <!-- Primer Apellido Column -->
-                    <ng-container matColumnDef="primerapellido">
-                        <th mat-header-cell *matHeaderCellDef> Primer Apellido </th>
-                        <td mat-cell *matCellDef="let element"> {{element.primerapellido}} </td>
-                    </ng-container>
-            
-                    <!-- Segundo Apellido Column -->
-                    <ng-container matColumnDef="segundoapellido">
-                        <th mat-header-cell *matHeaderCellDef> Segundo Apellido </th>
-                        <td mat-cell *matCellDef="let element"> {{element.segundoapellido}} </td>
-                    </ng-container>
-            
-                    <!-- Telefono Column -->
-                    <ng-container matColumnDef="telefono">
-                        <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-                        <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
-                    </ng-container>
-            
-                    <!-- Email Column -->
-                    <ng-container matColumnDef="email">
-                        <th mat-header-cell *matHeaderCellDef> Email </th>
-                        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-                    </ng-container>
-            
-                    <!-- Fecha Nacimiento Column -->
-                    <ng-container matColumnDef="fechanacimiento">
-                        <th mat-header-cell *matHeaderCellDef> Fecha Nacimiento </th>
-                        <td mat-cell *matCellDef="let element"> {{element.fechanacimiento | date:'dd/MM/yyyy'}} </td>
-                    </ng-container>
-            
-                    <!-- Valor Estimado Column -->
-                    <ng-container matColumnDef="valorestimado">
-                        <th mat-header-cell *matHeaderCellDef> Valor Estimado </th>
-                        <td mat-cell *matCellDef="let element"> {{element.valorestimado}} </td>
-                    </ng-container>
-            
-                    <!-- Observaciones Column -->
-                    <ng-container matColumnDef="observaciones">
-                        <th mat-header-cell *matHeaderCellDef> Observaciones </th>
-                        <td mat-cell *matCellDef="let element"> {{element.observaciones}} </td>
-                    </ng-container>
-
-                    <!-- Acciones Column -->
-                    <ng-container matColumnDef="acciones">
-                        <th mat-header-cell *matHeaderCellDef> Acciones </th>
-                        <td mat-cell *matCellDef="let element">
-                            <button mat-fab aria-label="Example icon button with a edit icon" (click)="navigateToForm(element.id)">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                            <button mat-fab aria-label="Example icon button with a delete icon" (click)="deleteClient(element.id)">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </td>
-                    </ng-container>
-            
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
+    <div>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
                 
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                               showFirstLastButtons
-                               aria-label="Select page of clients">
-                </mat-paginator>
-            </div>
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+        
+                <!-- Numero Identificacion Column -->
+                <ng-container matColumnDef="numeroidentificacion">
+                    <th mat-header-cell *matHeaderCellDef> Numero Identificacion </th>
+                    <td mat-cell *matCellDef="let element"> {{element.numeroidentificacion}} </td>
+                </ng-container>
+        
+                <!-- Primer Nombre Column -->
+                <ng-container matColumnDef="primernombre">
+                    <th mat-header-cell *matHeaderCellDef> Primer Nombre </th>
+                    <td mat-cell *matCellDef="let element"> {{element.primernombre}} </td>
+                </ng-container>
+        
+                <!-- Segundo Nombre Column -->
+                <ng-container matColumnDef="segundonombre">
+                    <th mat-header-cell *matHeaderCellDef> Segundo Nombre </th>
+                    <td mat-cell *matCellDef="let element"> {{element.segundonombre}} </td>
+                </ng-container>
+        
+                <!-- Primer Apellido Column -->
+                <ng-container matColumnDef="primerapellido">
+                    <th mat-header-cell *matHeaderCellDef> Primer Apellido </th>
+                    <td mat-cell *matCellDef="let element"> {{element.primerapellido}} </td>
+                </ng-container>
+        
+                <!-- Segundo Apellido Column -->
+                <ng-container matColumnDef="segundoapellido">
+                    <th mat-header-cell *matHeaderCellDef> Segundo Apellido </th>
+                    <td mat-cell *matCellDef="let element"> {{element.segundoapellido}} </td>
+                </ng-container>
+        
+                <!-- Telefono Column -->
+                <ng-container matColumnDef="telefono">
+                    <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+                    <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+                </ng-container>
+        
+                <!-- Email Column -->
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email </th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+        
+                <!-- Fecha Nacimiento Column -->
+                <ng-container matColumnDef="fechanacimiento">
+                    <th mat-header-cell *matHeaderCellDef> Fecha Nacimiento </th>
+                    <td mat-cell *matCellDef="let element"> {{element.fechanacimiento | date:'dd/MM/yyyy'}} </td>
+                </ng-container>
+        
+                <!-- Valor Estimado Column -->
+                <ng-container matColumnDef="valorestimado">
+                    <th mat-header-cell *matHeaderCellDef> Valor Estimado </th>
+                    <td mat-cell *matCellDef="let element"> {{element.valorestimado}} </td>
+                </ng-container>
+        
+                <!-- Observaciones Column -->
+                <ng-container matColumnDef="observaciones">
+                    <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+                    <td mat-cell *matCellDef="let element"> {{element.observaciones}} </td>
+                </ng-container>
+
+                <!-- Acciones Column -->
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-fab aria-label="Example icon button with a edit icon"(click)="navigateToForm(element.id)"><mat-icon>edit</mat-icon></button>
+                        <button mat-fab aria-label="Example icon button with a delete icon" (click)="deleteClient(element.id)"><mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+        
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of clients">
+            </mat-paginator>
         </div>
     </div>
 
     <!-- Angular Material Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@angular/material@15.2.5/bundles/material.umd.js"></script>
-
-</body>
-</html>

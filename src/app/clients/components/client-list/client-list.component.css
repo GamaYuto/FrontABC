@@ -1,50 +1,118 @@
-.add-client-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1;
+/* Estilo para el contenedor del encabezado (título y botón) */
+.header {
+    display: flex;
+    justify-content: space-between; /* El título a la izquierda y el botón a la derecha */
+    align-items: center; /* Centrar el título y el botón verticalmente */
+    padding: 20px;
+    width: 100%;
 }
 
+/* Estilo para centrar el título */
+h1 {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    font-size: 24px;
+    flex-grow: 1; /* Asegura que el título ocupe todo el espacio disponible */
+    text-align: center; /* Centra el texto */
+    margin: 0;
+}
 
-    /* Estilo para centrar el título */
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-        font-family: 'Arial', sans-serif;
-        color: #333;
-    }
+/* Estilo para el botón Agregar Cliente */
+.add-client-button {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-    /* Estilo de la tabla */
+.add-client-button:hover {
+    background-color: #5c6bc0;
+}
+
+/* Contenedor de la tabla */
+.table-container {
+    display: flex;
+    justify-content: center; /* Centrar la tabla */
+    padding: 10px;
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+}
+
+/* Estilo de la tabla */
+table {
+    width: 90%; /* Ajusta el ancho de la tabla */
+    max-width: 1200px; /* Establece un máximo de 1200px para pantallas grandes */
+    border-collapse: collapse;
+    margin: 20px 0; /* Espaciado vertical */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para la tabla */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Para que los bordes redondeados se apliquen */
+}
+
+/* Estilo de la cabecera de la tabla */
+th.mat-header-cell {
+    background-color: #3f51b5;
+    color: white;
+    padding: 8px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Estilo de las celdas de la tabla */
+td.mat-cell {
+    border: 1px solid #ddd;
+    padding: 8px;
+    transition: background-color 0.3s;
+}
+
+/* Estilo de los botones */
+button.mat-button {
+    margin: 0 5px;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Estilo de la paginación */
+mat-paginator {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Media Queries para adaptarse a diferentes tamaños de pantalla */
+@media (max-width: 1366px) {
     table {
-        width: 50%;
-        border-collapse: collapse;
-        margin-top: 20px;
+        width: 95%; /* Reducir el ancho de la tabla en pantallas más pequeñas */
     }
 
-    th.mat-header-cell {
-        background-color: #3f51b5; /* Color de fondo de la cabecera */
-        color: white; /* Color del texto de la cabecera */
-        padding: 10px;
-        text-align: left;
+    th.mat-header-cell, td.mat-cell {
+        padding: 6px;
+    }
+}
+
+@media (max-width: 768px) {
+    table {
+        width: 100%; /* Hacer que la tabla ocupe el 100% en pantallas muy pequeñas */
     }
 
-    td.mat-cell {
-        border: 1px solid #ddd; /* Bordes de las celdas */
-        padding: 8px;
+    th.mat-header-cell, td.mat-cell {
+        padding: 4px;
     }
 
-    tr.mat-row:hover {
-        background-color: #f5f5f5; /* Color de fondo al pasar el mouse */
+    .add-client-button {
+        font-size: 12px;
+        padding: 8px 12px;
     }
-
-    /* Estilo de los botones */
-    button.mat-button {
-        margin: 0 5px; /* Espaciado entre botones */
-    }
-
-    /* Estilo de la paginación */
-    mat-paginator {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center; /* Centrar la paginación */
-    }
+}

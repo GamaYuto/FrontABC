@@ -1,0 +1,67 @@
+<mat-card>
+    <h2>{{ isEditMode ? 'Editar Cliente' : 'Agregar Cliente' }}</h2>
+    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+
+      <mat-form-field>
+        <mat-label>Número de Identificación</mat-label>
+        <input matInput formControlName="numeroidentificacion">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Primer Nombre</mat-label>
+        <input matInput formControlName="primernombre">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Segundo Nombre</mat-label>
+        <input matInput formControlName="segundonombre">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Primer Apellido</mat-label>
+        <input matInput formControlName="primerapellido">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Segundo Apellido</mat-label>
+        <input matInput formControlName="segundoapellido">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="telefono">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Fecha de Nacimiento</mat-label>
+        <input matInput formControlName="fechanacimiento" type="date">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Valor Estimado</mat-label>
+        <input matInput formControlName="valorestimado">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Observaciones</mat-label>
+        <textarea matInput formControlName="observaciones"></textarea>
+      </mat-form-field>
+  
+      <!-- Botones de acción -->
+      <div class="form-actions">
+        <button mat-flat-button color="warn" type="submit" [disabled]="clientForm.invalid">
+          {{ isEditMode ? 'Guardar Cambios' : 'Agregar Cliente' }}
+        </button>
+        <button mat-raised-button color="warn" (click)="router.navigate(['/'])" type="button">
+          Cancelar
+        </button>
+      </div>
+      
+    </form>
+  </mat-card>
+  

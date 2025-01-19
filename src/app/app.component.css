@@ -1,0 +1,20 @@
+.main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: inherit;
+    position: relative;
+  }
+  
+  .content {
+    width: 100%; /* Ancho de la tabla al 80% de la pantalla */
+    max-width: 1500px; /* Ancho máximo */
+    margin: 0 auto; /* Centrado de contenido */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff; /* Fondo blanco */
+  }
+  

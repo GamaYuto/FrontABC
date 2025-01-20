@@ -5,14 +5,14 @@
 
   <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
 
-      <!-- Número de Identificación -->
-      <mat-form-field>
-        <mat-label>id</mat-label>
-        <input matInput formControlName="id">
-        <mat-error *ngIf="clientForm.get('id')?.hasError('required')">
-          El número de identificación es obligatorio.
-        </mat-error>
-      </mat-form-field>
+    <mat-form-field *ngIf="isEditMode">
+      <mat-label>ID</mat-label>
+      <input matInput formControlName="id" readonly>
+      <mat-error *ngIf="clientForm.get('id')?.hasError('required')">
+        El ID es obligatorio.
+      </mat-error>
+    </mat-form-field>
+    
 
     <!-- Número de Identificación -->
     <mat-form-field>

@@ -72,30 +72,32 @@ export class ClientFormComponent {
           client.fechanacimiento = new Date(client.fechanacimiento).toISOString().split('T')[0];
         }
         this.clientForm.patchValue(client);
+        this.clientForm.get('id')?.enable(); // Asegúrate de habilitarlo como lectura
       },
       error: (err) => {
         console.error(err);
-      }
+      },
     });
   }
+  
 
   onSubmit() {
     if (this.clientForm.invalid) {
       Object.keys(this.clientForm.controls).forEach(field => {
         const control = this.clientForm.get(field);
         if (control?.invalid) {
-          control?.markAsTouched();
+          control.markAsTouched();
         }
       });
       return;
     }
-
-    const clientData = { ...this.clientForm.value };
-
-    if (clientData.fechanacimiento && !clientData.fechanacimiento.includes('T')) {
-      clientData.fechanacimiento = new Date(clientData.fechanacimiento).toISOString().split('T')[0];
+  
+    const clientData = { ...this.clientForm.getRawValue() }; // Obtén todos los valores, incluso los deshabilitados
+  
+    if (!this.isEditMode) {
+      delete clientData.id; // Remueve el campo ID si estás creando
     }
-
+  
     if (this.isEditMode && this.clientId) {
       this.clientService.updateClient(this.clientId, clientData).subscribe({
         next: () => {
@@ -120,4 +122,4 @@ export class ClientFormComponent {
       });
     }
   }
-}
+}  

@@ -35,7 +35,7 @@ export class ClientFormComponent {
 
   constructor() {
     this.clientForm = this.fb.group({
-      id: ['', [Validators.required]],
+      id: [{ value: '', disabled: true }, [Validators.required]], // Deshabilitado por defecto
       numeroidentificacion: ['', [Validators.required]],
       primernombre: ['', [Validators.required, Validators.minLength(2)]],
       segundonombre: [''],
@@ -47,7 +47,7 @@ export class ClientFormComponent {
       valorestimado: ['', [Validators.required, Validators.min(0), Validators.max(9999999999)]],
       observaciones: [''],
     });
-
+  
     this.route.params.subscribe((params) => {
       if (params['id']) {
         this.isEditMode = true;
@@ -57,9 +57,13 @@ export class ClientFormComponent {
         } else {
           console.error('Invalid client ID');
         }
+      } else {
+        // Si es modo de creación, el campo `id` no debe mostrarse
+        this.clientForm.removeControl('id');
       }
     });
   }
+  
 
   private loadClient(id: number) {
     this.clientService.getClientById(id).subscribe({

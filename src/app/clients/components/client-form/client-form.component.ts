@@ -12,46 +12,48 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-client-form',
   imports: [
-    MatFormFieldModule,        
-    MatInputModule,            
-    ReactiveFormsModule,       
-    MatButtonModule,           
-    MatCardModule,             
-    CommonModule               
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCardModule,
+    CommonModule
   ],
-  templateUrl: './client-form.component.html',  
-  styleUrls: ['./client-form.component.css']    
+  templateUrl: './client-form.component.html',
+  styleUrls: ['./client-form.component.css']
 })
 export class ClientFormComponent {
-  private clientService = inject(ClientService);  
-  private fb = inject(FormBuilder);              
-  public router = inject(Router);                
-  private route = inject(ActivatedRoute);        
-  private SnackBar = inject(MatSnackBar);        
+  private clientService = inject(ClientService);
+  private fb = inject(FormBuilder);
+  public router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private snackBar = inject(MatSnackBar);
 
-  clientForm: FormGroup;      
-  isEditMode: boolean = false; 
+  clientForm: FormGroup;
+  isEditMode = false;
+  private clientId: number | null = null;
 
   constructor() {
     this.clientForm = this.fb.group({
-      numeroidentificacion: ['', [Validators.required]], 
-      primernombre: ['', [Validators.required, Validators.minLength(2)]],  
-      segundonombre: [''],      
-      primerapellido: ['', [Validators.required, Validators.minLength(2)]],  
-      segundoapellido: [''],    
-      telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],  
-      email: ['', [Validators.required, Validators.email]],  
-      fechanacimiento: ['', [Validators.required]],  
-      valorestimado: ['', [Validators.required, Validators.min(0), Validators.max(9999999999)]],  // Validación de máximo 10 dígitos
-      observaciones: [''],      
+      id: ['', [Validators.required]],
+      numeroidentificacion: ['', [Validators.required]],
+      primernombre: ['', [Validators.required, Validators.minLength(2)]],
+      segundonombre: [''],
+      primerapellido: ['', [Validators.required, Validators.minLength(2)]],
+      segundoapellido: [''],
+      telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      fechanacimiento: ['', [Validators.required]],
+      valorestimado: ['', [Validators.required, Validators.min(0), Validators.max(9999999999)]],
+      observaciones: [''],
     });
 
     this.route.params.subscribe((params) => {
       if (params['id']) {
         this.isEditMode = true;
-        const clientId = Number(params['id']);
-        if (!isNaN(clientId)) {
-          this.loadClient(clientId);
+        this.clientId = Number(params['id']);
+        if (!isNaN(this.clientId)) {
+          this.loadClient(this.clientId);
         } else {
           console.error('Invalid client ID');
         }
@@ -63,8 +65,7 @@ export class ClientFormComponent {
     this.clientService.getClientById(id).subscribe({
       next: (client) => {
         if (client.fechanacimiento) {
-          const formattedDate = new Date(client.fechanacimiento).toISOString().split('T')[0];
-          client.fechanacimiento = formattedDate;
+          client.fechanacimiento = new Date(client.fechanacimiento).toISOString().split('T')[0];
         }
         this.clientForm.patchValue(client);
       },
@@ -79,7 +80,7 @@ export class ClientFormComponent {
       Object.keys(this.clientForm.controls).forEach(field => {
         const control = this.clientForm.get(field);
         if (control?.invalid) {
-          control?.markAsTouched();  // Marca los campos inválidos como tocados
+          control?.markAsTouched();
         }
       });
       return;
@@ -87,28 +88,30 @@ export class ClientFormComponent {
 
     const clientData = { ...this.clientForm.value };
 
-    if (clientData.fechanacimiento) {
+    if (clientData.fechanacimiento && !clientData.fechanacimiento.includes('T')) {
       clientData.fechanacimiento = new Date(clientData.fechanacimiento).toISOString().split('T')[0];
     }
 
-    if (this.isEditMode) {
-      this.clientService.updateClient(clientData.id, clientData).subscribe({
+    if (this.isEditMode && this.clientId) {
+      this.clientService.updateClient(this.clientId, clientData).subscribe({
         next: () => {
-          this.SnackBar.open('Cliente actualizado correctamente!', 'Cerrar', { duration: 3000 });
+          this.snackBar.open('Cliente actualizado correctamente!', 'Cerrar', { duration: 3000 });
           this.router.navigate(['/']);
         },
         error: (err) => {
           console.error(err);
+          this.snackBar.open('Ocurrió un error al actualizar el cliente.', 'Cerrar', { duration: 3000 });
         },
       });
     } else {
       this.clientService.createClient(clientData).subscribe({
         next: () => {
-          this.SnackBar.open('Cliente creado correctamente!', 'Cerrar', { duration: 3000 });
+          this.snackBar.open('Cliente creado correctamente!', 'Cerrar', { duration: 3000 });
           this.router.navigate(['/']);
         },
         error: (err) => {
           console.error(err);
+          this.snackBar.open('Ocurrió un error al crear el cliente.', 'Cerrar', { duration: 3000 });
         },
       });
     }

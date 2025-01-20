@@ -1,4 +1,6 @@
 export const enviroments = {
     production: false,
-    apiUrl: "https://backabc.somee.com/api/Clients"
+    apiUrl: "https://localhost:7067/api/Clients"
+    
+    //"https://backabc.somee.com/api/Clients"
 }

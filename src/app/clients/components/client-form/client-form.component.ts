@@ -64,6 +64,7 @@ export class ClientFormComponent {
     });
   }
   
+  
 
   private loadClient(id: number) {
     this.clientService.getClientById(id).subscribe({
@@ -79,6 +80,7 @@ export class ClientFormComponent {
       },
     });
   }
+  
   
 
   onSubmit() {
@@ -122,4 +124,5 @@ export class ClientFormComponent {
       });
     }
   }
+  
 }  

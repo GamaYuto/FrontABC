@@ -67,10 +67,8 @@
             <!-- Valor Estimado Column -->
             <ng-container matColumnDef="valorestimado">
                 <th mat-header-cell *matHeaderCellDef> Valor Estimado </th>
-                <td mat-cell *matCellDef="let client">
-                  {{ client.valorestimado | currency:'COP':'symbol':'1.0-0':'es-CO' }}
-                </td>
-              </ng-container>
+                <td mat-cell *matCellDef="let element"> {{element.valorestimado}} </td>
+            </ng-container>
 
             <!-- Observaciones Column -->
             <ng-container matColumnDef="observaciones">
